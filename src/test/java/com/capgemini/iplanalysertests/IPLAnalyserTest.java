@@ -26,10 +26,9 @@ public class IPLAnalyserTest {
 
 	@Test
 	public void GivenABattingCSVFile_WhenLoaded_ReturnsTheNumberOfEntries() {
-		int noOfEntries;
 		try {
-			noOfEntries = iplAnalyser.loadCSVBattingData(IPL_BATTING_DATA, BattingDataCSV.class);
-			Assert.assertEquals(100, noOfEntries);
+			List<BattingDataCSV> list = iplAnalyser.loadCSVBattingData(IPL_BATTING_DATA, BattingDataCSV.class);
+			Assert.assertEquals(100, list.size());
 		} catch (IPLAnalyserException e) {
 			fail();
 			e.printStackTrace();
@@ -38,10 +37,9 @@ public class IPLAnalyserTest {
 
 	@Test
 	public void GivenABowlingCSVFile_WhenLoaded_ReturnsTheNumberOfEntries() {
-		int noOfEntries;
 		try {
-			noOfEntries = iplAnalyser.loadCSVBowlingData(IPL_BOWLING_DATA, BowlingDataCSV.class);
-			Assert.assertEquals(99, noOfEntries);
+			List<BowlingDataCSV> list = iplAnalyser.loadCSVBowlingData(IPL_BOWLING_DATA, BowlingDataCSV.class);
+			Assert.assertEquals(99, list.size());
 		} catch (IPLAnalyserException e) {
 			fail();
 			e.printStackTrace();

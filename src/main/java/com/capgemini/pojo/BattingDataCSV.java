@@ -64,7 +64,7 @@ public class BattingDataCSV {
 	}
 
 	public double getHittingValue() {
-		return sixes * (fours + strikeRate);
+		return strikeRate * (fours + sixes);
 	}
 
 }

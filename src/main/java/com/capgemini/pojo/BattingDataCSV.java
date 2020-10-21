@@ -63,4 +63,8 @@ public class BattingDataCSV {
 			return Double.parseDouble(average);
 	}
 
+	public double getHittingValue() {
+		return sixes * (fours + strikeRate);
+	}
+
 }

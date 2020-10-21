@@ -106,4 +106,16 @@ public class IplAnalyser {
 		return newList;
 	}
 
+	public List<BattingDataCSV> getHigestStrikeRateWith6snad4sBatsmen(String filePath, int topPlayers)
+			throws IPLAnalyserException {
+		List<BattingDataCSV> list = loadCSVData(filePath, BattingDataCSV.class);
+		Comparator<BattingDataCSV> comparator = Comparator.comparing(BattingDataCSV::getHittingValue).reversed();
+		list = getSortedList(list, comparator);
+		List<BattingDataCSV> newList = new LinkedList<>();
+		for (int i = 0; i < topPlayers; i++) {
+			newList.add(list.get(i));
+		}
+		return newList;
+	}
+
 }

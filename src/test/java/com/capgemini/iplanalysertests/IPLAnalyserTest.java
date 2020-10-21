@@ -134,4 +134,15 @@ public class IPLAnalyserTest {
 		}
 	}
 
+	@Test
+	public void GivenBowlingCSVFile_WhenLoaded_GivesBestStrikeRateBowlers() {
+		try {
+			List<BowlingDataCSV> list = iplAnalyser.getBestBowlingStrikeRatePlayers(IPL_BOWLING_DATA, 5);
+			Assert.assertEquals("Alzarri Joseph", list.get(0).playerName);
+		} catch (IPLAnalyserException e) {
+			fail();
+			e.printStackTrace();
+		}
+	}
+
 }

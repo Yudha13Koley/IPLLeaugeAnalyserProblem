@@ -130,4 +130,18 @@ public class IPLAnalyserTest {
 		}
 	}
 
+	@Test
+	public void GivenBattingCSVFile_WhenLoaded_GivesHighestRunsWithAverage() {
+		try {
+			List<BattingDataCSV> list = iplAnalyser.getHighestRunsWithAverage(IPL_BATTING_DATA, 5);
+			for (BattingDataCSV p : list) {
+				System.out.println(p.playerName);
+			}
+			Assert.assertEquals("David Warner", list.get(0).playerName);
+		} catch (IPLAnalyserException e) {
+			fail();
+			e.printStackTrace();
+		}
+	}
+
 }

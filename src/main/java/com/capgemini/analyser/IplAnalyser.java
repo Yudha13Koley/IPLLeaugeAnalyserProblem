@@ -174,4 +174,16 @@ public class IplAnalyser {
 		return newList;
 	}
 
+	public List<BowlingDataCSV> getBestBowlingStrikeRatePlayers(String filePath, int topPlayers)
+			throws IPLAnalyserException {
+		List<BowlingDataCSV> list = loadCSVBowlingData(filePath, BowlingDataCSV.class);
+		Comparator<BowlingDataCSV> comparator = Comparator.comparing(p -> p.getStrikeRate());
+		list = getSortedList(list, comparator);
+		List<BowlingDataCSV> newList = new LinkedList<>();
+		for (int i = 0; i < topPlayers; i++) {
+			newList.add(list.get(i));
+		}
+		return newList;
+	}
+
 }

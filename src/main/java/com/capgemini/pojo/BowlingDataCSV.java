@@ -60,4 +60,11 @@ public class BowlingDataCSV {
 			return Double.parseDouble(average);
 	}
 
+	public double getStrikeRate() {
+		if (sr.equals("-")) {
+			return 100;
+		} else
+			return Double.parseDouble(sr);
+	}
+
 }

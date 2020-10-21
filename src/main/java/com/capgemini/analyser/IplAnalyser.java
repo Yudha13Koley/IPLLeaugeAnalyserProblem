@@ -51,4 +51,9 @@ public class IplAnalyser {
 		return hashmap.size();
 	}
 
+	public List<BattingDataCSV> getTopAverageBatsmen(String iplBattingData)throws IPLAnalyserException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -2,6 +2,8 @@ package com.capgemini.iplanalysertests;
 
 import static org.junit.Assert.fail;
 
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,6 +42,20 @@ public class IPLAnalyserTest {
 		try {
 			noOfEntries = iplAnalyser.loadCSVBowlingData(IPL_BOWLING_DATA, BowlingDataCSV.class);
 			Assert.assertEquals(99, noOfEntries);
+		} catch (IPLAnalyserException e) {
+			fail();
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void GivenBattingCSVFile_WhenLoaded_GivesTopAverageBatsmans() {
+		try {
+			List<BattingDataCSV> list=iplAnalyser.getTopAverageBatsmen(IPL_BATTING_DATA);
+			for(BattingDataCSV p :list) {
+				System.out.println(p);
+			}
+			Assert.assertEquals("Virat Kohli",list.get(0).playerName);
 		} catch (IPLAnalyserException e) {
 			fail();
 			e.printStackTrace();

@@ -5,9 +5,12 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.capgemini.exception.CSVBuilderException;
 import com.capgemini.exceptions.IPLAnalyserException;
@@ -42,7 +45,7 @@ public class IplAnalyser {
 		return hashmap.size();
 	}
 
-	public int loadCSVBowlingData(String filePath, Class<BowlingDataCSV>classname) throws IPLAnalyserException {
+	public int loadCSVBowlingData(String filePath, Class<BowlingDataCSV> classname) throws IPLAnalyserException {
 		List<BowlingDataCSV> list = loadCSVData(filePath, classname);
 		Map<Integer, BowlingDataCSV> hashmap = new HashMap<>();
 		for (BowlingDataCSV player : list) {
@@ -51,9 +54,15 @@ public class IplAnalyser {
 		return hashmap.size();
 	}
 
-	public List<BattingDataCSV> getTopAverageBatsmen(String iplBattingData)throws IPLAnalyserException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<BattingDataCSV> getTopAverageBatsmen(String filePath, int topPlayers) throws IPLAnalyserException {
+		List<BattingDataCSV> list = loadCSVData(filePath, BattingDataCSV.class);
+		Comparator<BattingDataCSV> comparator = Comparator.comparing(BattingDataCSV::getAverage).reversed();
+		list = list.stream().sorted(comparator).collect(Collectors.toList());
+		List<BattingDataCSV> newList = new LinkedList<>();
+		for (int i = 0; i < topPlayers; i++) {
+			newList.add(list.get(i));
+		}
+		return newList;
 	}
 
 }

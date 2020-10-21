@@ -52,17 +52,15 @@ public class BattingDataCSV {
 	public String toString() {
 		return "BattingDataCSV [pos=" + pos + ", playerName=" + playerName + ", matches=" + matches + ", innings="
 				+ innings + ", notOuts=" + notOuts + ", runs=" + runs + ", highestScore=" + highestScore + ", average="
-				+ average + ", ballaFaced=" + ballsFaced + ", strikeRate=" + strikeRate + ", hundreds=" + hundreds + ", fifties="
-				+ fifties + ", fours=" + fours + ", sixes=" + sixes + "]";
+				+ average + ", ballaFaced=" + ballsFaced + ", strikeRate=" + strikeRate + ", hundreds=" + hundreds
+				+ ", fifties=" + fifties + ", fours=" + fours + ", sixes=" + sixes + "]";
 	}
 
 	public double getAverage() {
-		if(average.equals("-")) {
+		if (average.equals("-")) {
 			return 0.0;
-		}
-		else
+		} else
 			return Double.parseDouble(average);
 	}
-	
 
 }

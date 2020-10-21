@@ -41,7 +41,7 @@ public class BowlingDataCSV {
 
 	@CsvBindByName(column = "5w", required = true)
 	public int fiveWickets;
-	
+
 	public BowlingDataCSV() {
 	}
 
@@ -52,5 +52,5 @@ public class BowlingDataCSV {
 				+ ", bbi=" + bbi + ", economy=" + economy + ", sr=" + sr + ", fourWickets=" + fourWickets
 				+ ", fiveWickets=" + fiveWickets + "]";
 	}
-	
+
 }

@@ -5,6 +5,7 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -57,7 +58,7 @@ public class IplAnalyser {
 	public List<BattingDataCSV> getTopAverageBatsmen(String filePath, int topPlayers) throws IPLAnalyserException {
 		List<BattingDataCSV> list = loadCSVData(filePath, BattingDataCSV.class);
 		Comparator<BattingDataCSV> comparator = Comparator.comparing(BattingDataCSV::getAverage).reversed();
-		list = list.stream().sorted(comparator).collect(Collectors.toList());
+		list = getSortedList(list, comparator);
 		List<BattingDataCSV> newList = new LinkedList<>();
 		for (int i = 0; i < topPlayers; i++) {
 			newList.add(list.get(i));
@@ -65,9 +66,20 @@ public class IplAnalyser {
 		return newList;
 	}
 
-	public List<BattingDataCSV> getTopStrikeRatedBatsmen(String iplBattingData, int i) throws IPLAnalyserException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<BattingDataCSV> getTopStrikeRatedBatsmen(String filePath, int topPlayers) throws IPLAnalyserException {
+		List<BattingDataCSV> list = loadCSVData(filePath, BattingDataCSV.class);
+		Comparator<BattingDataCSV> comparator = Comparator.comparing(player -> player.strikeRate);
+		comparator = Collections.reverseOrder(comparator);
+		list = getSortedList(list, comparator);
+		List<BattingDataCSV> newList = new LinkedList<>();
+		for (int i = 0; i < topPlayers; i++) {
+			newList.add(list.get(i));
+		}
+		return newList;
+	}
+
+	private <E> List<E> getSortedList(List<E> list, Comparator<E> comparator) {
+		return list.stream().sorted(comparator).collect(Collectors.toList());
 	}
 
 }

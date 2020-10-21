@@ -61,7 +61,7 @@ public class IPLAnalyserTest {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void GivenBattingCSVFile_WhenLoaded_GivesTopStrikeRatedBatsmen() {
 		try {
@@ -69,7 +69,7 @@ public class IPLAnalyserTest {
 			for (BattingDataCSV p : list) {
 				System.out.println(p.playerName);
 			}
-			Assert.assertEquals("MS Dhoni", list.get(0).playerName);
+			Assert.assertEquals("Ishant Sharma", list.get(0).playerName);
 		} catch (IPLAnalyserException e) {
 			fail();
 			e.printStackTrace();

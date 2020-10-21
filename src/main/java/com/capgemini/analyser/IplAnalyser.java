@@ -79,8 +79,7 @@ public class IplAnalyser {
 	public List<BattingDataCSV> getTopStrikeRatedBatsmen(String filePath, int topPlayers) throws IPLAnalyserException {
 		List<BattingDataCSV> list = loadCSVBattingData(filePath, BattingDataCSV.class);
 		Comparator<BattingDataCSV> comparator = Comparator.comparing(player -> player.strikeRate);
-		comparator = Collections.reverseOrder(comparator);
-		list = getSortedList(list, comparator);
+		list = getSortedList(list, Collections.reverseOrder(comparator));
 		List<BattingDataCSV> newList = new LinkedList<>();
 		for (int i = 0; i < topPlayers; i++) {
 			newList.add(list.get(i));
@@ -95,8 +94,7 @@ public class IplAnalyser {
 	public List<BattingDataCSV> getTopSixHitterBatsmen(String filePath, int topPlayers) throws IPLAnalyserException {
 		List<BattingDataCSV> list = loadCSVBattingData(filePath, BattingDataCSV.class);
 		Comparator<BattingDataCSV> comparator = Comparator.comparing(player -> player.sixes);
-		comparator = Collections.reverseOrder(comparator);
-		list = getSortedList(list, comparator);
+		list = getSortedList(list, Collections.reverseOrder(comparator));
 		List<BattingDataCSV> newList = new LinkedList<>();
 		for (int i = 0; i < topPlayers; i++) {
 			newList.add(list.get(i));
@@ -107,8 +105,7 @@ public class IplAnalyser {
 	public List<BattingDataCSV> getTopFourHitterBatsmen(String filePath, int topPlayers) throws IPLAnalyserException {
 		List<BattingDataCSV> list = loadCSVBattingData(filePath, BattingDataCSV.class);
 		Comparator<BattingDataCSV> comparator = Comparator.comparing(player -> player.fours);
-		comparator = Collections.reverseOrder(comparator);
-		list = getSortedList(list, comparator);
+		list = getSortedList(list, Collections.reverseOrder(comparator));
 		List<BattingDataCSV> newList = new LinkedList<>();
 		for (int i = 0; i < topPlayers; i++) {
 			newList.add(list.get(i));
@@ -134,6 +131,18 @@ public class IplAnalyser {
 		List<BattingDataCSV> list = loadCSVBattingData(filePath, BattingDataCSV.class);
 		Comparator<BattingDataCSV> comparator = Comparator.comparing(BattingDataCSV::getHittingValue).reversed();
 		list = getSortedList(list, comparator);
+		List<BattingDataCSV> newList = new LinkedList<>();
+		for (int i = 0; i < topPlayers; i++) {
+			newList.add(list.get(i));
+		}
+		return newList;
+	}
+
+	public List<BattingDataCSV> getBestAverageWithStrikeRate(String filePath, int topPlayers)
+			throws IPLAnalyserException {
+		List<BattingDataCSV> list = loadCSVBattingData(filePath, BattingDataCSV.class);
+		Comparator<BattingDataCSV> comparator = Comparator.comparing(p -> p.getAverage() * p.strikeRate);
+		list = getSortedList(list, Collections.reverseOrder(comparator));
 		List<BattingDataCSV> newList = new LinkedList<>();
 		for (int i = 0; i < topPlayers; i++) {
 			newList.add(list.get(i));

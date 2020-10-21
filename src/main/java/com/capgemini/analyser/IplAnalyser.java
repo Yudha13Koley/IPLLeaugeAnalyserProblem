@@ -150,4 +150,16 @@ public class IplAnalyser {
 		return newList;
 	}
 
+	public List<BattingDataCSV> getHighestRunsWithAverage(String filePath, int topPlayers) throws IPLAnalyserException {
+		List<BattingDataCSV> list = loadCSVBattingData(filePath, BattingDataCSV.class);
+		Comparator<BattingDataCSV> runcomparator = Comparator.comparing(p -> p.runs);
+		Comparator<BattingDataCSV> comparator = runcomparator.thenComparing(Comparator.comparing(p -> p.getAverage()));
+		list = getSortedList(list, Collections.reverseOrder(comparator));
+		List<BattingDataCSV> newList = new LinkedList<>();
+		for (int i = 0; i < topPlayers; i++) {
+			newList.add(list.get(i));
+		}
+		return newList;
+	}
+
 }

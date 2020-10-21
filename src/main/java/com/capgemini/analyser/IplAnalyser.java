@@ -65,4 +65,9 @@ public class IplAnalyser {
 		return newList;
 	}
 
+	public List<BattingDataCSV> getTopStrikeRatedBatsmen(String iplBattingData, int i) throws IPLAnalyserException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

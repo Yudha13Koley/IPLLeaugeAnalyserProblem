@@ -49,9 +49,23 @@ public class IPLAnalyserTest {
 	}
 
 	@Test
-	public void GivenBattingCSVFile_WhenLoaded_GivesTopAverageBatsmans() {
+	public void GivenBattingCSVFile_WhenLoaded_GivesTopAverageBatsmen() {
 		try {
 			List<BattingDataCSV> list = iplAnalyser.getTopAverageBatsmen(IPL_BATTING_DATA, 5);
+			for (BattingDataCSV p : list) {
+				System.out.println(p.playerName);
+			}
+			Assert.assertEquals("MS Dhoni", list.get(0).playerName);
+		} catch (IPLAnalyserException e) {
+			fail();
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void GivenBattingCSVFile_WhenLoaded_GivesTopStrikeRatedBatsmen() {
+		try {
+			List<BattingDataCSV> list = iplAnalyser.getTopStrikeRatedBatsmen(IPL_BATTING_DATA, 5);
 			for (BattingDataCSV p : list) {
 				System.out.println(p.playerName);
 			}

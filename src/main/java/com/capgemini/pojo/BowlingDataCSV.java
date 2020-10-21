@@ -53,4 +53,11 @@ public class BowlingDataCSV {
 				+ ", fiveWickets=" + fiveWickets + "]";
 	}
 
+	public double getAverage() {
+		if (average.equals("-")) {
+			return 1000;
+		} else
+			return Double.parseDouble(average);
+	}
+
 }

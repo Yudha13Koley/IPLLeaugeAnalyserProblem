@@ -79,9 +79,11 @@ public class IPLAnalyserTest {
 	@Test
 	public void GivenBattingCSVFile_WhenLoaded_GivesHigestNumberOfSixHitterBatsman() {
 		try {
-			BattingDataCSV Player = iplAnalyser.getTopSixHitterBatsmen(IPL_BATTING_DATA);
-			System.out.println(Player.playerName);
-			Assert.assertEquals("Andre Russell", Player.playerName);
+			List<BattingDataCSV> list = iplAnalyser.getTopSixHitterBatsmen(IPL_BATTING_DATA, 5);
+			for (BattingDataCSV p : list) {
+				System.out.println(p.playerName);
+			}
+			Assert.assertEquals("Andre Russell", list.get(0).playerName);
 		} catch (IPLAnalyserException e) {
 			fail();
 			e.printStackTrace();
@@ -91,9 +93,11 @@ public class IPLAnalyserTest {
 	@Test
 	public void GivenBattingCSVFile_WhenLoaded_GivesHigestNumberOfFourHitterBatsman() {
 		try {
-			BattingDataCSV Player = iplAnalyser.getTopFourHitterBatsmen(IPL_BATTING_DATA);
-			System.out.println(Player.playerName);
-			Assert.assertEquals("David Warner", Player.playerName);
+			List<BattingDataCSV> list = iplAnalyser.getTopFourHitterBatsmen(IPL_BATTING_DATA, 5);
+			for (BattingDataCSV p : list) {
+				System.out.println(p.playerName);
+			}
+			Assert.assertEquals("Shikhar Dhawan", list.get(0).playerName);
 		} catch (IPLAnalyserException e) {
 			fail();
 			e.printStackTrace();

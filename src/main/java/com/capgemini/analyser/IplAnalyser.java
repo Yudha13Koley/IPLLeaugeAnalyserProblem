@@ -82,19 +82,28 @@ public class IplAnalyser {
 		return list.stream().sorted(comparator).collect(Collectors.toList());
 	}
 
-	public BattingDataCSV getTopSixHitterBatsmen(String filePath) throws IPLAnalyserException {
+	public List<BattingDataCSV> getTopSixHitterBatsmen(String filePath, int topPlayers) throws IPLAnalyserException {
 		List<BattingDataCSV> list = loadCSVData(filePath, BattingDataCSV.class);
 		Comparator<BattingDataCSV> comparator = Comparator.comparing(player -> player.sixes);
 		comparator = Collections.reverseOrder(comparator);
 		list = getSortedList(list, comparator);
-		return list.stream().findFirst().orElse(null);
+		List<BattingDataCSV> newList = new LinkedList<>();
+		for (int i = 0; i < topPlayers; i++) {
+			newList.add(list.get(i));
+		}
+		return newList;
 	}
 
-	public BattingDataCSV getTopFourHitterBatsmen(String filePath) throws IPLAnalyserException {
+	public List<BattingDataCSV> getTopFourHitterBatsmen(String filePath, int topPlayers) throws IPLAnalyserException {
 		List<BattingDataCSV> list = loadCSVData(filePath, BattingDataCSV.class);
 		Comparator<BattingDataCSV> comparator = Comparator.comparing(player -> player.fours);
 		comparator = Collections.reverseOrder(comparator);
-		return list.stream().findFirst().orElse(null);
+		list = getSortedList(list, comparator);
+		List<BattingDataCSV> newList = new LinkedList<>();
+		for (int i = 0; i < topPlayers; i++) {
+			newList.add(list.get(i));
+		}
+		return newList;
 	}
 
 }

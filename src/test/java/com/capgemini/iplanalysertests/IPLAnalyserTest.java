@@ -116,4 +116,18 @@ public class IPLAnalyserTest {
 		}
 	}
 
+	@Test
+	public void GivenBattingCSVFile_WhenLoaded_GivesHighestAverageWithStrikeRate() {
+		try {
+			List<BattingDataCSV> list = iplAnalyser.getBestAverageWithStrikeRate(IPL_BATTING_DATA, 5);
+			for (BattingDataCSV p : list) {
+				System.out.println(p.playerName);
+			}
+			Assert.assertEquals("Andre Russell", list.get(0).playerName);
+		} catch (IPLAnalyserException e) {
+			fail();
+			e.printStackTrace();
+		}
+	}
+
 }

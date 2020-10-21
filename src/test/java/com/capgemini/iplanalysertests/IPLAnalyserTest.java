@@ -75,5 +75,29 @@ public class IPLAnalyserTest {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void GivenBattingCSVFile_WhenLoaded_GivesHigestNumberOfSixHitterBatsman() {
+		try {
+			BattingDataCSV Player = iplAnalyser.getTopSixHitterBatsmen(IPL_BATTING_DATA);
+				System.out.println(Player.playerName);
+			Assert.assertEquals("Ishant Sharma", Player.playerName);
+		} catch (IPLAnalyserException e) {
+			fail();
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void GivenBattingCSVFile_WhenLoaded_GivesHigestNumberOfFourHitterBatsman() {
+		try {
+			BattingDataCSV Player = iplAnalyser.getTopFourHitterBatsmen(IPL_BATTING_DATA);
+				System.out.println(Player.playerName);
+			Assert.assertEquals("Ishant Sharma", Player.playerName);
+		} catch (IPLAnalyserException e) {
+			fail();
+			e.printStackTrace();
+		}
+	}
 
 }

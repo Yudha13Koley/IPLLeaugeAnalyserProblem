@@ -159,4 +159,13 @@ public class IplAnalyser {
 		return getSortedList(list, comparator, topPlayers);
 	}
 
+	public List<IPLBowler> getBestWicketsWithBestAverageBowlers(String filePath, int topPlayers)
+			throws IPLAnalyserException {
+		List<IPLBowler> list = loadCSVBowlingData(filePath, IPLBowler.class);
+		Comparator<IPLBowler> wicketsComparator = Comparator.comparing(p -> p.wickets);
+		Comparator<IPLBowler> averageComparator = Comparator.comparing(p -> p.getAverage());
+		Comparator<IPLBowler> comparator = wicketsComparator.reversed().thenComparing(averageComparator);
+		return getSortedList(list, comparator, topPlayers);
+	}
+
 }

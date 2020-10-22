@@ -155,12 +155,26 @@ public class IPLAnalyserTest {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test
 	public void GivenBowlingCSVFile_WhenLoaded_GivesBestStrikeRatesWith4wand5ws() {
 		try {
 			List<IPLBowler> list = iplAnalyser.getBestStrikeRateWith4wAnd5w(IPL_BOWLING_DATA, 5);
 			Assert.assertEquals("Kagiso Rabada", list.get(0).playerName);
+		} catch (IPLAnalyserException e) {
+			fail();
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void GivenBowlingCSVFile_WhenLoaded_GivesBestBolwingAveragesWithBestBowlingStrikeRatePlayers() {
+		try {
+			List<IPLBowler> list = iplAnalyser.getBestAverageWithStrikeRateBowlers(IPL_BOWLING_DATA, 5);
+			for (IPLBowler player : list) {
+				System.out.println(player);
+			}
+			Assert.assertEquals("Alzarri Joseph", list.get(0).playerName);
 		} catch (IPLAnalyserException e) {
 			fail();
 			e.printStackTrace();

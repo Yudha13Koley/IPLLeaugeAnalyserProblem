@@ -180,6 +180,14 @@ public class IplAnalyser {
 		return getSortedList(allRouders, comparator.reversed(), topPlayers);
 	}
 
+	public List<IPLBatsman> getHighestHundredsWithAverage(String filePath, int topPlayers) throws IPLAnalyserException {
+		List<IPLBatsman> list = loadCSVBattingData(filePath, IPLBatsman.class);
+		Comparator<IPLBatsman> hundredcomparator = Comparator.comparing(p -> p.hundreds);
+		Comparator<IPLBatsman> comparator = hundredcomparator
+				.thenComparing(Comparator.comparing(IPLBatsman::getAverage));
+		return getSortedList(list, comparator.reversed(), topPlayers);
+	}
+
 	private <E> List<E> getSortedList(List<E> list, Comparator<E> comparator, int topPlayers) {
 		return list.stream().sorted(comparator).limit(topPlayers).collect(Collectors.toList());
 	}

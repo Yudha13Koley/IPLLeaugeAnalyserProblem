@@ -78,10 +78,6 @@ public class IplAnalyser {
 		return getSortedList(list, Collections.reverseOrder(comparator), topPlayers);
 	}
 
-	private <E> List<E> getSortedList(List<E> list, Comparator<E> comparator, int topPlayers) {
-		return list.stream().sorted(comparator).limit(topPlayers).collect(Collectors.toList());
-	}
-
 	public List<IPLBatsman> getTopSixHitterBatsmen(String filePath, int topPlayers) throws IPLAnalyserException {
 		List<IPLBatsman> list = loadCSVBattingData(filePath, IPLBatsman.class);
 		Comparator<IPLBatsman> comparator = Comparator.comparing(player -> player.sixes);
@@ -172,6 +168,29 @@ public class IplAnalyser {
 
 	public List<IPLAllrounder> getBestBattingAndBowlingAveragePlayers(String filePathBatting, String filePathBowling,
 			int topPlayers) throws IPLAnalyserException {
+		List<IPLAllrounder> allRouders = getAllRoundersList(filePathBatting, filePathBowling);
+		Comparator<IPLAllrounder> comparator = Comparator.comparing(p -> p.battingAverage / p.bowlingAverage);
+		return getSortedList(allRouders, comparator.reversed(), topPlayers);
+	}
+
+	public List<IPLAllrounder> getMostRunsAndWicketGettingPlayers(String filePathBatting, String filePathBowling,
+			int topPlayers) throws IPLAnalyserException {
+		List<IPLAllrounder> allRouders = getAllRoundersList(filePathBatting, filePathBowling);
+		Comparator<IPLAllrounder> comparator = Comparator.comparing(player -> player.runs * player.wickets);
+		return getSortedList(allRouders, comparator.reversed(), topPlayers);
+	}
+
+	private <E> List<E> getSortedList(List<E> list, Comparator<E> comparator, int topPlayers) {
+		return list.stream().sorted(comparator).limit(topPlayers).collect(Collectors.toList());
+	}
+
+	private IPLBowler isAvailableInBowlers(String playerName, List<IPLBowler> bowlerList) {
+		Predicate<IPLBowler> isAvailableInList = player -> player.playerName.equalsIgnoreCase(playerName);
+		return bowlerList.stream().filter(isAvailableInList).findFirst().orElse(null);
+	}
+
+	private List<IPLAllrounder> getAllRoundersList(String filePathBatting, String filePathBowling)
+			throws IPLAnalyserException {
 		List<IPLBatsman> batsmenList = loadCSVBattingData(filePathBatting, IPLBatsman.class);
 		List<IPLBowler> bowlerList = loadCSVBowlingData(filePathBowling, IPLBowler.class);
 		List<IPLAllrounder> allRouders = new LinkedList<>();
@@ -182,13 +201,7 @@ public class IplAnalyser {
 						player.getAverage(), playerInBowlerList.getAverage()));
 			}
 		}
-		Comparator<IPLAllrounder> comparator = Comparator.comparing(p -> p.battingAverage / p.bowlingAverage);
-		return getSortedList(allRouders, comparator.reversed(), topPlayers);
-	}
-
-	private IPLBowler isAvailableInBowlers(String playerName, List<IPLBowler> bowlerList) {
-		Predicate<IPLBowler> isAvailableInList = player -> player.playerName.equalsIgnoreCase(playerName);
-		return bowlerList.stream().filter(isAvailableInList).findFirst().orElse(null);
+		return allRouders;
 	}
 
 }

@@ -63,8 +63,4 @@ public class IPLBatsman {
 			return Double.parseDouble(average);
 	}
 
-	public double getHittingValue() {
-		return strikeRate * (fours + sixes);
-	}
-
 }

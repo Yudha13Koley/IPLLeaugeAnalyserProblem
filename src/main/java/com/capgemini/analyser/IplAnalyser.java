@@ -90,23 +90,12 @@ public class IplAnalyser {
 		return getSortedList(list, Collections.reverseOrder(comparator), topPlayers);
 	}
 
-	/*
-	 * public List<IPLBatsman> getHigestStrikeRateWith6snad4sBatsmen(String
-	 * filePath, int topPlayers) throws IPLAnalyserException { List<IPLBatsman> list
-	 * = loadCSVBattingData(filePath, IPLBatsman.class); Comparator<IPLBatsman>
-	 * sixandfourscomparator = Comparator.comparing(player -> player.sixes +
-	 * player.fours); Comparator<IPLBatsman> strikeratecomparator =
-	 * Comparator.comparing(player -> player.strikeRate); Comparator<IPLBatsman>
-	 * comparator =
-	 * strikeratecomparator.thenComparing(sixandfourscomparator).reversed(); return
-	 * getSortedList(list, comparator, topPlayers); }
-	 */
-
 	public List<IPLBatsman> getHigestStrikeRateWith6snad4sBatsmen(String filePath, int topPlayers)
 			throws IPLAnalyserException {
 		List<IPLBatsman> list = loadCSVBattingData(filePath, IPLBatsman.class);
-		Comparator<IPLBatsman> comparator = Comparator.comparing(IPLBatsman::getHittingValue).reversed();
-		return getSortedList(list, comparator, topPlayers);
+		Comparator<IPLBatsman> comparator = Comparator
+				.comparing(player -> player.strikeRate * (player.fours + player.sixes));
+		return getSortedList(list, comparator.reversed(), topPlayers);
 	}
 
 	public List<IPLBatsman> getBestAverageWithStrikeRate(String filePath, int topPlayers) throws IPLAnalyserException {
@@ -186,6 +175,15 @@ public class IplAnalyser {
 		Comparator<IPLBatsman> comparator = hundredcomparator
 				.thenComparing(Comparator.comparing(IPLBatsman::getAverage));
 		return getSortedList(list, comparator.reversed(), topPlayers);
+	}
+
+	public List<IPLBatsman> getZeroHundredsOrFiftiesWithGoodAverageBatsmen(String filePath, int topPlayers)
+			throws IPLAnalyserException {
+		List<IPLBatsman> list = loadCSVBattingData(filePath, IPLBatsman.class);
+		Comparator<IPLBatsman> avgComparator = Comparator.comparing(IPLBatsman::getAverage).reversed();
+		Predicate<IPLBatsman> isZeroHundredOrFifty = player -> (player.fifties + player.hundreds == 0);
+		list = list.stream().filter(isZeroHundredOrFifty).collect(Collectors.toList());
+		return getSortedList(list, avgComparator, topPlayers);
 	}
 
 	private <E> List<E> getSortedList(List<E> list, Comparator<E> comparator, int topPlayers) {

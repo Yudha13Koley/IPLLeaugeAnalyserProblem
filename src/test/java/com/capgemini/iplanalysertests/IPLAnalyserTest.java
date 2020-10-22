@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import com.capgemini.analyser.IplAnalyser;
 import com.capgemini.exceptions.IPLAnalyserException;
+import com.capgemini.pojo.IPLAllrounder;
 import com.capgemini.pojo.IPLBatsman;
 import com.capgemini.pojo.IPLBowler;
 
@@ -182,10 +183,22 @@ public class IPLAnalyserTest {
 	public void GivenBowlingCSVFile_WhenLoaded_GivesBestWicketsWithAveragesPlayers() {
 		try {
 			List<IPLBowler> list = iplAnalyser.getBestWicketsWithBestAverageBowlers(IPL_BOWLING_DATA, 5);
-			for (IPLBowler player : list) {
+			Assert.assertEquals("Imran Tahir", list.get(0).playerName);
+		} catch (IPLAnalyserException e) {
+			fail();
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void GivenBowlingCSVFile_WhenLoaded_GivesAllRoundBattingAndBowlingAveragePlayers() {
+		try {
+			List<IPLAllrounder> list = iplAnalyser.getBestBattingAndBowlingAveragePlayers(IPL_BATTING_DATA,
+					IPL_BOWLING_DATA, 5);
+			for (IPLAllrounder player : list) {
 				System.out.println(player);
 			}
-			Assert.assertEquals("Imran Tahir", list.get(0).playerName);
+			Assert.assertEquals("Andre Russell", list.get(0).playerName);
 		} catch (IPLAnalyserException e) {
 			fail();
 			e.printStackTrace();

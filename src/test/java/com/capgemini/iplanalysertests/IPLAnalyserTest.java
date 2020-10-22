@@ -195,10 +195,22 @@ public class IPLAnalyserTest {
 		try {
 			List<IPLAllrounder> list = iplAnalyser.getBestBattingAndBowlingAveragePlayers(IPL_BATTING_DATA,
 					IPL_BOWLING_DATA, 5);
+			Assert.assertEquals("Andre Russell", list.get(0).playerName);
+		} catch (IPLAnalyserException e) {
+			fail();
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void GivenBowlingCSVFile_WhenLoaded_GivesMostRunAndMostWicketTakenByAnyPlayer() {
+		try {
+			List<IPLAllrounder> list = iplAnalyser.getMostRunsAndWicketGettingPlayers(IPL_BATTING_DATA,
+					IPL_BOWLING_DATA, 5);
 			for (IPLAllrounder player : list) {
 				System.out.println(player);
 			}
-			Assert.assertEquals("Andre Russell", list.get(0).playerName);
+			Assert.assertEquals("Hardik Pandya", list.get(0).playerName);
 		} catch (IPLAnalyserException e) {
 			fail();
 			e.printStackTrace();

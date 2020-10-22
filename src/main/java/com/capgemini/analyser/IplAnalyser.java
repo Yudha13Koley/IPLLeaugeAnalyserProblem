@@ -17,8 +17,8 @@ import com.capgemini.exception.CSVBuilderException;
 import com.capgemini.exceptions.IPLAnalyserException;
 import com.capgemini.factory.CSVBuilderFactory;
 import com.capgemini.interfaces.ICSVBuilder;
-import com.capgemini.pojo.BattingDataCSV;
-import com.capgemini.pojo.BowlingDataCSV;
+import com.capgemini.pojo.IPLBatsman;
+import com.capgemini.pojo.IPLBowler;
 
 public class IplAnalyser {
 
@@ -37,43 +37,42 @@ public class IplAnalyser {
 		}
 	}
 
-	public List<BattingDataCSV> loadCSVBattingData(String filePath, Class<BattingDataCSV> classname)
+	public List<IPLBatsman> loadCSVBattingData(String filePath, Class<IPLBatsman> classname)
 			throws IPLAnalyserException {
-		List<BattingDataCSV> list = loadCSVData(filePath, classname);
-		Map<Integer, BattingDataCSV> hashmap = new HashMap<>();
-		for (BattingDataCSV player : list) {
+		List<IPLBatsman> list = loadCSVData(filePath, classname);
+		Map<Integer, IPLBatsman> hashmap = new HashMap<>();
+		for (IPLBatsman player : list) {
 			hashmap.put(player.pos, player);
 		}
-		List<BattingDataCSV> newlist = new LinkedList<>();
-		for (Map.Entry<Integer, BattingDataCSV> entry : hashmap.entrySet()) {
+		List<IPLBatsman> newlist = new LinkedList<>();
+		for (Map.Entry<Integer, IPLBatsman> entry : hashmap.entrySet()) {
 			newlist.add(entry.getValue());
 		}
 		return newlist;
 	}
 
-	public List<BowlingDataCSV> loadCSVBowlingData(String filePath, Class<BowlingDataCSV> classname)
-			throws IPLAnalyserException {
-		List<BowlingDataCSV> list = loadCSVData(filePath, classname);
-		Map<Integer, BowlingDataCSV> hashmap = new HashMap<>();
-		for (BowlingDataCSV player : list) {
+	public List<IPLBowler> loadCSVBowlingData(String filePath, Class<IPLBowler> classname) throws IPLAnalyserException {
+		List<IPLBowler> list = loadCSVData(filePath, classname);
+		Map<Integer, IPLBowler> hashmap = new HashMap<>();
+		for (IPLBowler player : list) {
 			hashmap.put(player.pos, player);
 		}
-		List<BowlingDataCSV> newlist = new LinkedList<>();
-		for (Map.Entry<Integer, BowlingDataCSV> entry : hashmap.entrySet()) {
+		List<IPLBowler> newlist = new LinkedList<>();
+		for (Map.Entry<Integer, IPLBowler> entry : hashmap.entrySet()) {
 			newlist.add(entry.getValue());
 		}
 		return newlist;
 	}
 
-	public List<BattingDataCSV> getTopAverageBatsmen(String filePath, int topPlayers) throws IPLAnalyserException {
-		List<BattingDataCSV> list = loadCSVBattingData(filePath, BattingDataCSV.class);
-		Comparator<BattingDataCSV> comparator = Comparator.comparing(BattingDataCSV::getAverage).reversed();
+	public List<IPLBatsman> getTopAverageBatsmen(String filePath, int topPlayers) throws IPLAnalyserException {
+		List<IPLBatsman> list = loadCSVBattingData(filePath, IPLBatsman.class);
+		Comparator<IPLBatsman> comparator = Comparator.comparing(IPLBatsman::getAverage).reversed();
 		return getSortedList(list, comparator, topPlayers);
 	}
 
-	public List<BattingDataCSV> getTopStrikeRatedBatsmen(String filePath, int topPlayers) throws IPLAnalyserException {
-		List<BattingDataCSV> list = loadCSVBattingData(filePath, BattingDataCSV.class);
-		Comparator<BattingDataCSV> comparator = Comparator.comparing(player -> player.strikeRate);
+	public List<IPLBatsman> getTopStrikeRatedBatsmen(String filePath, int topPlayers) throws IPLAnalyserException {
+		List<IPLBatsman> list = loadCSVBattingData(filePath, IPLBatsman.class);
+		Comparator<IPLBatsman> comparator = Comparator.comparing(player -> player.strikeRate);
 		return getSortedList(list, Collections.reverseOrder(comparator), topPlayers);
 	}
 
@@ -81,62 +80,60 @@ public class IplAnalyser {
 		return list.stream().sorted(comparator).limit(topPlayers).collect(Collectors.toList());
 	}
 
-	public List<BattingDataCSV> getTopSixHitterBatsmen(String filePath, int topPlayers) throws IPLAnalyserException {
-		List<BattingDataCSV> list = loadCSVBattingData(filePath, BattingDataCSV.class);
-		Comparator<BattingDataCSV> comparator = Comparator.comparing(player -> player.sixes);
+	public List<IPLBatsman> getTopSixHitterBatsmen(String filePath, int topPlayers) throws IPLAnalyserException {
+		List<IPLBatsman> list = loadCSVBattingData(filePath, IPLBatsman.class);
+		Comparator<IPLBatsman> comparator = Comparator.comparing(player -> player.sixes);
 		return getSortedList(list, Collections.reverseOrder(comparator), topPlayers);
 	}
 
-	public List<BattingDataCSV> getTopFourHitterBatsmen(String filePath, int topPlayers) throws IPLAnalyserException {
-		List<BattingDataCSV> list = loadCSVBattingData(filePath, BattingDataCSV.class);
-		Comparator<BattingDataCSV> comparator = Comparator.comparing(player -> player.fours);
+	public List<IPLBatsman> getTopFourHitterBatsmen(String filePath, int topPlayers) throws IPLAnalyserException {
+		List<IPLBatsman> list = loadCSVBattingData(filePath, IPLBatsman.class);
+		Comparator<IPLBatsman> comparator = Comparator.comparing(player -> player.fours);
 		return getSortedList(list, Collections.reverseOrder(comparator), topPlayers);
 	}
 
 	/*
-	 * public List<BattingDataCSV> getHigestStrikeRateWith6snad4sBatsmen(String
-	 * filePath, int topPlayers) throws IPLAnalyserException { List<BattingDataCSV>
-	 * list = loadCSVBattingData(filePath, BattingDataCSV.class);
-	 * Comparator<BattingDataCSV> sixandfourscomparator =
-	 * Comparator.comparing(player -> player.sixes + player.fours);
-	 * Comparator<BattingDataCSV> strikeratecomparator = Comparator.comparing(player
-	 * -> player.strikeRate); Comparator<BattingDataCSV> comparator =
+	 * public List<IPLBatsman> getHigestStrikeRateWith6snad4sBatsmen(String
+	 * filePath, int topPlayers) throws IPLAnalyserException { List<IPLBatsman> list
+	 * = loadCSVBattingData(filePath, IPLBatsman.class); Comparator<IPLBatsman>
+	 * sixandfourscomparator = Comparator.comparing(player -> player.sixes +
+	 * player.fours); Comparator<IPLBatsman> strikeratecomparator =
+	 * Comparator.comparing(player -> player.strikeRate); Comparator<IPLBatsman>
+	 * comparator =
 	 * strikeratecomparator.thenComparing(sixandfourscomparator).reversed(); return
 	 * getSortedList(list, comparator, topPlayers); }
 	 */
 
-	public List<BattingDataCSV> getHigestStrikeRateWith6snad4sBatsmen(String filePath, int topPlayers)
+	public List<IPLBatsman> getHigestStrikeRateWith6snad4sBatsmen(String filePath, int topPlayers)
 			throws IPLAnalyserException {
-		List<BattingDataCSV> list = loadCSVBattingData(filePath, BattingDataCSV.class);
-		Comparator<BattingDataCSV> comparator = Comparator.comparing(BattingDataCSV::getHittingValue).reversed();
+		List<IPLBatsman> list = loadCSVBattingData(filePath, IPLBatsman.class);
+		Comparator<IPLBatsman> comparator = Comparator.comparing(IPLBatsman::getHittingValue).reversed();
 		return getSortedList(list, comparator, topPlayers);
 	}
 
-	public List<BattingDataCSV> getBestAverageWithStrikeRate(String filePath, int topPlayers)
-			throws IPLAnalyserException {
-		List<BattingDataCSV> list = loadCSVBattingData(filePath, BattingDataCSV.class);
-		Comparator<BattingDataCSV> comparator = Comparator.comparing(p -> p.getAverage() * p.strikeRate);
+	public List<IPLBatsman> getBestAverageWithStrikeRate(String filePath, int topPlayers) throws IPLAnalyserException {
+		List<IPLBatsman> list = loadCSVBattingData(filePath, IPLBatsman.class);
+		Comparator<IPLBatsman> comparator = Comparator.comparing(p -> p.getAverage() * p.strikeRate);
 		return getSortedList(list, Collections.reverseOrder(comparator), topPlayers);
 	}
 
-	public List<BattingDataCSV> getHighestRunsWithAverage(String filePath, int topPlayers) throws IPLAnalyserException {
-		List<BattingDataCSV> list = loadCSVBattingData(filePath, BattingDataCSV.class);
-		Comparator<BattingDataCSV> runcomparator = Comparator.comparing(p -> p.runs);
-		Comparator<BattingDataCSV> comparator = runcomparator.thenComparing(Comparator.comparing(p -> p.getAverage()));
+	public List<IPLBatsman> getHighestRunsWithAverage(String filePath, int topPlayers) throws IPLAnalyserException {
+		List<IPLBatsman> list = loadCSVBattingData(filePath, IPLBatsman.class);
+		Comparator<IPLBatsman> runcomparator = Comparator.comparing(p -> p.runs);
+		Comparator<IPLBatsman> comparator = runcomparator.thenComparing(Comparator.comparing(p -> p.getAverage()));
 		return getSortedList(list, Collections.reverseOrder(comparator), topPlayers);
 	}
 
-	public List<BowlingDataCSV> getBestBowlingAveragePlayers(String filePath, int topPlayers)
-			throws IPLAnalyserException {
-		List<BowlingDataCSV> list = loadCSVBowlingData(filePath, BowlingDataCSV.class);
-		Comparator<BowlingDataCSV> comparator = Comparator.comparing(p -> p.getAverage());
+	public List<IPLBowler> getBestBowlingAveragePlayers(String filePath, int topPlayers) throws IPLAnalyserException {
+		List<IPLBowler> list = loadCSVBowlingData(filePath, IPLBowler.class);
+		Comparator<IPLBowler> comparator = Comparator.comparing(p -> p.getAverage());
 		return getSortedList(list, comparator, topPlayers);
 	}
 
-	public List<BowlingDataCSV> getBestBowlingStrikeRatePlayers(String filePath, int topPlayers)
+	public List<IPLBowler> getBestBowlingStrikeRatePlayers(String filePath, int topPlayers)
 			throws IPLAnalyserException {
-		List<BowlingDataCSV> list = loadCSVBowlingData(filePath, BowlingDataCSV.class);
-		Comparator<BowlingDataCSV> comparator = Comparator.comparing(p -> p.getStrikeRate());
+		List<IPLBowler> list = loadCSVBowlingData(filePath, IPLBowler.class);
+		Comparator<IPLBowler> comparator = Comparator.comparing(p -> p.getStrikeRate());
 		return getSortedList(list, comparator, topPlayers);
 	}
 

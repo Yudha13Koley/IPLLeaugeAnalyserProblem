@@ -2,7 +2,7 @@ package com.capgemini.pojo;
 
 import com.opencsv.bean.CsvBindByName;
 
-public class BattingDataCSV {
+public class IPLBatsman {
 	@CsvBindByName(column = "POS", required = true)
 	public int pos;
 
@@ -45,12 +45,12 @@ public class BattingDataCSV {
 	@CsvBindByName(column = "6s", required = true)
 	public int sixes;
 
-	public BattingDataCSV() {
+	public IPLBatsman() {
 	}
 
 	@Override
 	public String toString() {
-		return "BattingDataCSV [pos=" + pos + ", playerName=" + playerName + ", matches=" + matches + ", innings="
+		return "Batsman [pos=" + pos + ", playerName=" + playerName + ", matches=" + matches + ", innings="
 				+ innings + ", notOuts=" + notOuts + ", runs=" + runs + ", highestScore=" + highestScore + ", average="
 				+ average + ", ballaFaced=" + ballsFaced + ", strikeRate=" + strikeRate + ", hundreds=" + hundreds
 				+ ", fifties=" + fifties + ", fours=" + fours + ", sixes=" + sixes + "]";

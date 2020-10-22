@@ -191,7 +191,7 @@ public class IPLAnalyserTest {
 	}
 
 	@Test
-	public void GivenBowlingCSVFile_WhenLoaded_GivesAllRoundBattingAndBowlingAveragePlayers() {
+	public void GivenBothCSVFile_WhenLoaded_GivesAllRoundBattingAndBowlingAveragePlayers() {
 		try {
 			List<IPLAllrounder> list = iplAnalyser.getBestBattingAndBowlingAveragePlayers(IPL_BATTING_DATA,
 					IPL_BOWLING_DATA, 5);
@@ -203,14 +203,25 @@ public class IPLAnalyserTest {
 	}
 
 	@Test
-	public void GivenBowlingCSVFile_WhenLoaded_GivesMostRunAndMostWicketTakenByAnyPlayer() {
+	public void GivenBothCSVFile_WhenLoaded_GivesMostRunAndMostWicketTakenByAnyPlayer() {
 		try {
 			List<IPLAllrounder> list = iplAnalyser.getMostRunsAndWicketGettingPlayers(IPL_BATTING_DATA,
 					IPL_BOWLING_DATA, 5);
-			for (IPLAllrounder player : list) {
+			Assert.assertEquals("Hardik Pandya", list.get(0).playerName);
+		} catch (IPLAnalyserException e) {
+			fail();
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void GivenBattingCSVFile_WhenLoaded_GivesMostHundredWithGoodAverageBatsman() {
+		try {
+			List<IPLBatsman> list = iplAnalyser.getHighestHundredsWithAverage(IPL_BATTING_DATA, 5);
+			for (IPLBatsman player : list) {
 				System.out.println(player);
 			}
-			Assert.assertEquals("Hardik Pandya", list.get(0).playerName);
+			Assert.assertEquals("David Warner", list.get(0).playerName);
 		} catch (IPLAnalyserException e) {
 			fail();
 			e.printStackTrace();

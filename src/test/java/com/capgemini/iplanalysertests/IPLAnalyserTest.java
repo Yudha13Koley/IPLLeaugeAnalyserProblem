@@ -218,10 +218,18 @@ public class IPLAnalyserTest {
 	public void GivenBattingCSVFile_WhenLoaded_GivesMostHundredWithGoodAverageBatsman() {
 		try {
 			List<IPLBatsman> list = iplAnalyser.getHighestHundredsWithAverage(IPL_BATTING_DATA, 5);
-			for (IPLBatsman player : list) {
-				System.out.println(player);
-			}
 			Assert.assertEquals("David Warner", list.get(0).playerName);
+		} catch (IPLAnalyserException e) {
+			fail();
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void GivenBattingCSVFile_WhenLoaded_GivesZeroHundredOrFiftiesWithBestAverageBatsman() {
+		try {
+			List<IPLBatsman> list = iplAnalyser.getZeroHundredsOrFiftiesWithGoodAverageBatsmen(IPL_BATTING_DATA, 5);
+			Assert.assertEquals("Marcus Stoinis", list.get(0).playerName);
 		} catch (IPLAnalyserException e) {
 			fail();
 			e.printStackTrace();

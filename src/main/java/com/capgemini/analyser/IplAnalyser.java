@@ -144,4 +144,12 @@ public class IplAnalyser {
 		return getSortedList(list, comparator, topPlayers);
 	}
 
+	public List<IPLBowler> getBestStrikeRateWith4wAnd5w(String filePath, int topPlayers) throws IPLAnalyserException {
+		List<IPLBowler> list = loadCSVBowlingData(filePath, IPLBowler.class);
+		Comparator<IPLBowler> strikeRateComparator = Comparator.comparing(p -> p.getStrikeRate());
+		Comparator<IPLBowler> fourAndFiveWicketComparator = Comparator.comparing(p -> p.fourWickets+p.fiveWickets);
+		Comparator<IPLBowler> comparator = fourAndFiveWicketComparator.reversed().thenComparing(strikeRateComparator);
+		return getSortedList(list, comparator, topPlayers);
+	}
+
 }

@@ -11,12 +11,14 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import com.capgemini.exception.CSVBuilderException;
 import com.capgemini.exceptions.IPLAnalyserException;
 import com.capgemini.factory.CSVBuilderFactory;
 import com.capgemini.interfaces.ICSVBuilder;
+import com.capgemini.pojo.IPLAllrounder;
 import com.capgemini.pojo.IPLBatsman;
 import com.capgemini.pojo.IPLBowler;
 
@@ -166,6 +168,27 @@ public class IplAnalyser {
 		Comparator<IPLBowler> averageComparator = Comparator.comparing(p -> p.getAverage());
 		Comparator<IPLBowler> comparator = wicketsComparator.reversed().thenComparing(averageComparator);
 		return getSortedList(list, comparator, topPlayers);
+	}
+
+	public List<IPLAllrounder> getBestBattingAndBowlingAveragePlayers(String filePathBatting, String filePathBowling,
+			int topPlayers) throws IPLAnalyserException {
+		List<IPLBatsman> batsmenList = loadCSVBattingData(filePathBatting, IPLBatsman.class);
+		List<IPLBowler> bowlerList = loadCSVBowlingData(filePathBowling, IPLBowler.class);
+		List<IPLAllrounder> allRouders = new LinkedList<>();
+		for (IPLBatsman player : batsmenList) {
+			IPLBowler playerInBowlerList = isAvailableInBowlers(player.playerName, bowlerList);
+			if (playerInBowlerList != null) {
+				allRouders.add(new IPLAllrounder(player.playerName, player.runs, playerInBowlerList.wickets,
+						player.getAverage(), playerInBowlerList.getAverage()));
+			}
+		}
+		Comparator<IPLAllrounder> comparator = Comparator.comparing(p -> p.battingAverage / p.bowlingAverage);
+		return getSortedList(allRouders, comparator.reversed(), topPlayers);
+	}
+
+	private IPLBowler isAvailableInBowlers(String playerName, List<IPLBowler> bowlerList) {
+		Predicate<IPLBowler> isAvailableInList = player -> player.playerName.equalsIgnoreCase(playerName);
+		return bowlerList.stream().filter(isAvailableInList).findFirst().orElse(null);
 	}
 
 }

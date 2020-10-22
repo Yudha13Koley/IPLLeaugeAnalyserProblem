@@ -145,4 +145,15 @@ public class IPLAnalyserTest {
 		}
 	}
 
+	@Test
+	public void GivenBowlingCSVFile_WhenLoaded_GivesBestEconomyRateBowlers() {
+		try {
+			List<IPLBowler> list = iplAnalyser.getBestBowlingEconomyRatePlayers(IPL_BOWLING_DATA, 5);
+			Assert.assertEquals("Shivam Dube", list.get(0).playerName);
+		} catch (IPLAnalyserException e) {
+			fail();
+			e.printStackTrace();
+		}
+	}
+
 }

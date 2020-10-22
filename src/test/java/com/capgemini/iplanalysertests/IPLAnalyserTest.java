@@ -171,10 +171,21 @@ public class IPLAnalyserTest {
 	public void GivenBowlingCSVFile_WhenLoaded_GivesBestBolwingAveragesWithBestBowlingStrikeRatePlayers() {
 		try {
 			List<IPLBowler> list = iplAnalyser.getBestAverageWithStrikeRateBowlers(IPL_BOWLING_DATA, 5);
+			Assert.assertEquals("Alzarri Joseph", list.get(0).playerName);
+		} catch (IPLAnalyserException e) {
+			fail();
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void GivenBowlingCSVFile_WhenLoaded_GivesBestWicketsWithAveragesPlayers() {
+		try {
+			List<IPLBowler> list = iplAnalyser.getBestWicketsWithBestAverageBowlers(IPL_BOWLING_DATA, 5);
 			for (IPLBowler player : list) {
 				System.out.println(player);
 			}
-			Assert.assertEquals("Alzarri Joseph", list.get(0).playerName);
+			Assert.assertEquals("Imran Tahir", list.get(0).playerName);
 		} catch (IPLAnalyserException e) {
 			fail();
 			e.printStackTrace();

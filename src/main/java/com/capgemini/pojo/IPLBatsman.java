@@ -50,10 +50,10 @@ public class IPLBatsman {
 
 	@Override
 	public String toString() {
-		return "Batsman [pos=" + pos + ", playerName=" + playerName + ", matches=" + matches + ", innings="
-				+ innings + ", notOuts=" + notOuts + ", runs=" + runs + ", highestScore=" + highestScore + ", average="
-				+ average + ", ballaFaced=" + ballsFaced + ", strikeRate=" + strikeRate + ", hundreds=" + hundreds
-				+ ", fifties=" + fifties + ", fours=" + fours + ", sixes=" + sixes + "]";
+		return "Batsman [pos=" + pos + ", playerName=" + playerName + ", matches=" + matches + ", innings=" + innings
+				+ ", notOuts=" + notOuts + ", runs=" + runs + ", highestScore=" + highestScore + ", average=" + average
+				+ ", ballaFaced=" + ballsFaced + ", strikeRate=" + strikeRate + ", hundreds=" + hundreds + ", fifties="
+				+ fifties + ", fours=" + fours + ", sixes=" + sixes + "]";
 	}
 
 	public double getAverage() {

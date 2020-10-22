@@ -47,10 +47,10 @@ public class IPLBowler {
 
 	@Override
 	public String toString() {
-		return "Bowler [pos=" + pos + ", playerName=" + playerName + ", matches=" + matches + ", innings="
-				+ innings + ", overs=" + overs + ", runs=" + runs + ", wickets=" + wickets + ", average=" + average
-				+ ", bbi=" + bbi + ", economy=" + economy + ", sr=" + sr + ", fourWickets=" + fourWickets
-				+ ", fiveWickets=" + fiveWickets + "]";
+		return "Bowler [pos=" + pos + ", playerName=" + playerName + ", matches=" + matches + ", innings=" + innings
+				+ ", overs=" + overs + ", runs=" + runs + ", wickets=" + wickets + ", average=" + average + ", bbi="
+				+ bbi + ", economy=" + economy + ", sr=" + sr + ", fourWickets=" + fourWickets + ", fiveWickets="
+				+ fiveWickets + "]";
 	}
 
 	public double getAverage() {

@@ -137,4 +137,11 @@ public class IplAnalyser {
 		return getSortedList(list, comparator, topPlayers);
 	}
 
+	public List<IPLBowler> getBestBowlingEconomyRatePlayers(String filePath, int topPlayers)
+			throws IPLAnalyserException {
+		List<IPLBowler> list = loadCSVBowlingData(filePath, IPLBowler.class);
+		Comparator<IPLBowler> comparator = Comparator.comparing(p -> p.economy);
+		return getSortedList(list, comparator, topPlayers);
+	}
+
 }

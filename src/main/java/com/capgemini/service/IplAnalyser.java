@@ -1,4 +1,4 @@
-package com.capgemini.analyser;
+package com.capgemini.service;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -21,8 +21,9 @@ import com.capgemini.interfaces.ICSVBuilder;
 import com.capgemini.pojo.IPLAllrounder;
 import com.capgemini.pojo.IPLBatsman;
 import com.capgemini.pojo.IPLBowler;
+import com.capgemini.service.interfaces.IPLAnalyserBuilderInterface;
 
-public class IplAnalyser {
+public class IplAnalyser implements IPLAnalyserBuilderInterface {
 
 	private <E> List<E> loadCSVData(String filePath, Class<E> classname) throws IPLAnalyserException {
 		try {

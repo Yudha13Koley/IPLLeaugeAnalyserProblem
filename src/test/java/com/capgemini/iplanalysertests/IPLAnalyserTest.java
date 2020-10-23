@@ -8,11 +8,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.capgemini.analyser.IplAnalyser;
 import com.capgemini.exceptions.IPLAnalyserException;
 import com.capgemini.pojo.IPLAllrounder;
 import com.capgemini.pojo.IPLBatsman;
 import com.capgemini.pojo.IPLBowler;
+import com.capgemini.service.IplAnalyser;
 
 public class IPLAnalyserTest {
 	IplAnalyser iplAnalyser;
@@ -26,7 +26,7 @@ public class IPLAnalyserTest {
 	}
 
 	@Test
-	public void GivenABattingCSVFile_WhenLoaded_ReturnsTheNumberOfEntries() {
+	public void givenABattingCSVFile_whenLoaded_returnsTheNumberOfEntries() {
 		try {
 			List<IPLBatsman> list = iplAnalyser.loadCSVBattingData(IPL_BATTING_DATA, IPLBatsman.class);
 			Assert.assertEquals(100, list.size());
@@ -37,7 +37,7 @@ public class IPLAnalyserTest {
 	}
 
 	@Test
-	public void GivenABowlingCSVFile_WhenLoaded_ReturnsTheNumberOfEntries() {
+	public void givenABowlingCSVFile_whenLoaded_returnsTheNumberOfEntries() {
 		try {
 			List<IPLBowler> list = iplAnalyser.loadCSVBowlingData(IPL_BOWLING_DATA, IPLBowler.class);
 			Assert.assertEquals(99, list.size());
@@ -48,7 +48,7 @@ public class IPLAnalyserTest {
 	}
 
 	@Test
-	public void GivenBattingCSVFile_WhenLoaded_GivesTopAverageBatsmen() {
+	public void givenBattingCSVFile_whenLoaded_returnsTopAverageBatsmen() {
 		try {
 			List<IPLBatsman> list = iplAnalyser.getTopAverageBatsmen(IPL_BATTING_DATA, 5);
 			Assert.assertEquals("MS Dhoni", list.get(0).playerName);
@@ -59,7 +59,7 @@ public class IPLAnalyserTest {
 	}
 
 	@Test
-	public void GivenBattingCSVFile_WhenLoaded_GivesTopStrikeRatedBatsmen() {
+	public void givenBattingCSVFile_whenLoaded_returnsTopStrikeRatedBatsmen() {
 		try {
 			List<IPLBatsman> list = iplAnalyser.getTopStrikeRatedBatsmen(IPL_BATTING_DATA, 5);
 			Assert.assertEquals("Ishant Sharma", list.get(0).playerName);
@@ -70,7 +70,7 @@ public class IPLAnalyserTest {
 	}
 
 	@Test
-	public void GivenBattingCSVFile_WhenLoaded_GivesHigestNumberOfSixHitterBatsman() {
+	public void givenBattingCSVFile_whenLoaded_returnsHigestNumberOfSixHitterBatsman() {
 		try {
 			List<IPLBatsman> list = iplAnalyser.getTopSixHitterBatsmen(IPL_BATTING_DATA, 5);
 			Assert.assertEquals("Andre Russell", list.get(0).playerName);
@@ -81,7 +81,7 @@ public class IPLAnalyserTest {
 	}
 
 	@Test
-	public void GivenBattingCSVFile_WhenLoaded_GivesHigestNumberOfFourHitterBatsman() {
+	public void givenBattingCSVFile_whenLoaded_returnsHigestNumberOfFourHitterBatsman() {
 		try {
 			List<IPLBatsman> list = iplAnalyser.getTopFourHitterBatsmen(IPL_BATTING_DATA, 5);
 			Assert.assertEquals("Shikhar Dhawan", list.get(0).playerName);
@@ -92,7 +92,7 @@ public class IPLAnalyserTest {
 	}
 
 	@Test
-	public void GivenBattingCSVFile_WhenLoaded_GivesHigestStrikeRateWith6sand4sBatsmen() {
+	public void givenBattingCSVFile_whenLoaded_returnsHigestStrikeRateWith6sand4sBatsmen() {
 		try {
 			List<IPLBatsman> list = iplAnalyser.getHigestStrikeRateWith6snad4sBatsmen(IPL_BATTING_DATA, 5);
 			Assert.assertEquals("Andre Russell", list.get(0).playerName);
@@ -103,7 +103,7 @@ public class IPLAnalyserTest {
 	}
 
 	@Test
-	public void GivenBattingCSVFile_WhenLoaded_GivesHighestAverageWithStrikeRate() {
+	public void givenBattingCSVFile_whenLoaded_returnsHighestAverageWithStrikeRate() {
 		try {
 			List<IPLBatsman> list = iplAnalyser.getBestAverageWithStrikeRate(IPL_BATTING_DATA, 5);
 			Assert.assertEquals("Andre Russell", list.get(0).playerName);
@@ -114,7 +114,7 @@ public class IPLAnalyserTest {
 	}
 
 	@Test
-	public void GivenBattingCSVFile_WhenLoaded_GivesHighestRunsWithAverage() {
+	public void givenBattingCSVFile_whenLoaded_returnsHighestRunsWithAverage() {
 		try {
 			List<IPLBatsman> list = iplAnalyser.getHighestRunsWithAverage(IPL_BATTING_DATA, 5);
 			Assert.assertEquals("David Warner", list.get(0).playerName);
@@ -125,7 +125,7 @@ public class IPLAnalyserTest {
 	}
 
 	@Test
-	public void GivenBowlingCSVFile_WhenLoaded_GivesBestAverageBowlers() {
+	public void givenBowlingCSVFile_whenLoaded_returnsBestAverageBowlers() {
 		try {
 			List<IPLBowler> list = iplAnalyser.getBestBowlingAveragePlayers(IPL_BOWLING_DATA, 5);
 			Assert.assertEquals("Anukul Roy", list.get(0).playerName);
@@ -136,7 +136,7 @@ public class IPLAnalyserTest {
 	}
 
 	@Test
-	public void GivenBowlingCSVFile_WhenLoaded_GivesBestStrikeRateBowlers() {
+	public void givenBowlingCSVFile_whenLoaded_returnsBestStrikeRateBowlers() {
 		try {
 			List<IPLBowler> list = iplAnalyser.getBestBowlingStrikeRatePlayers(IPL_BOWLING_DATA, 5);
 			Assert.assertEquals("Alzarri Joseph", list.get(0).playerName);
@@ -147,7 +147,7 @@ public class IPLAnalyserTest {
 	}
 
 	@Test
-	public void GivenBowlingCSVFile_WhenLoaded_GivesBestEconomyRateBowlers() {
+	public void givenBowlingCSVFile_whenLoaded_returnsBestEconomyRateBowlers() {
 		try {
 			List<IPLBowler> list = iplAnalyser.getBestBowlingEconomyRatePlayers(IPL_BOWLING_DATA, 5);
 			Assert.assertEquals("Shivam Dube", list.get(0).playerName);
@@ -158,7 +158,7 @@ public class IPLAnalyserTest {
 	}
 
 	@Test
-	public void GivenBowlingCSVFile_WhenLoaded_GivesBestStrikeRatesWith4wand5ws() {
+	public void givenBowlingCSVFile_whenLoaded_returnsBestStrikeRatesWith4wand5ws() {
 		try {
 			List<IPLBowler> list = iplAnalyser.getBestStrikeRateWith4wAnd5w(IPL_BOWLING_DATA, 5);
 			Assert.assertEquals("Kagiso Rabada", list.get(0).playerName);
@@ -169,7 +169,7 @@ public class IPLAnalyserTest {
 	}
 
 	@Test
-	public void GivenBowlingCSVFile_WhenLoaded_GivesBestBolwingAveragesWithBestBowlingStrikeRatePlayers() {
+	public void givenBowlingCSVFile_whenLoaded_returnsBestBolwingAveragesWithBestBowlingStrikeRatePlayers() {
 		try {
 			List<IPLBowler> list = iplAnalyser.getBestAverageWithStrikeRateBowlers(IPL_BOWLING_DATA, 5);
 			Assert.assertEquals("Alzarri Joseph", list.get(0).playerName);
@@ -180,7 +180,7 @@ public class IPLAnalyserTest {
 	}
 
 	@Test
-	public void GivenBowlingCSVFile_WhenLoaded_GivesBestWicketsWithAveragesPlayers() {
+	public void givenBowlingCSVFile_whenLoaded_returnsBestWicketsWithAveragesPlayers() {
 		try {
 			List<IPLBowler> list = iplAnalyser.getBestWicketsWithBestAverageBowlers(IPL_BOWLING_DATA, 5);
 			Assert.assertEquals("Imran Tahir", list.get(0).playerName);
@@ -191,7 +191,7 @@ public class IPLAnalyserTest {
 	}
 
 	@Test
-	public void GivenBothCSVFile_WhenLoaded_GivesAllRoundBattingAndBowlingAveragePlayers() {
+	public void givenBothCSVFile_whenLoaded_returnsAllRoundBattingAndBowlingAveragePlayers() {
 		try {
 			List<IPLAllrounder> list = iplAnalyser.getBestBattingAndBowlingAveragePlayers(IPL_BATTING_DATA,
 					IPL_BOWLING_DATA, 5);
@@ -203,7 +203,7 @@ public class IPLAnalyserTest {
 	}
 
 	@Test
-	public void GivenBothCSVFile_WhenLoaded_GivesMostRunAndMostWicketTakenByAnyPlayer() {
+	public void givenBothCSVFile_whenLoaded_returnsMostRunAndMostWicketTakenByAnyPlayer() {
 		try {
 			List<IPLAllrounder> list = iplAnalyser.getMostRunsAndWicketGettingPlayers(IPL_BATTING_DATA,
 					IPL_BOWLING_DATA, 5);
@@ -215,7 +215,7 @@ public class IPLAnalyserTest {
 	}
 
 	@Test
-	public void GivenBattingCSVFile_WhenLoaded_GivesMostHundredWithGoodAverageBatsman() {
+	public void givenBattingCSVFile_whenLoaded_returnsMostHundredWithGoodAverageBatsman() {
 		try {
 			List<IPLBatsman> list = iplAnalyser.getHighestHundredsWithAverage(IPL_BATTING_DATA, 5);
 			Assert.assertEquals("David Warner", list.get(0).playerName);
@@ -226,7 +226,7 @@ public class IPLAnalyserTest {
 	}
 
 	@Test
-	public void GivenBattingCSVFile_WhenLoaded_GivesZeroHundredOrFiftiesWithBestAverageBatsman() {
+	public void givenBattingCSVFile_whenLoaded_returnsZeroHundredOrFiftiesWithBestAverageBatsman() {
 		try {
 			List<IPLBatsman> list = iplAnalyser.getZeroHundredsOrFiftiesWithGoodAverageBatsmen(IPL_BATTING_DATA, 5);
 			Assert.assertEquals("Marcus Stoinis", list.get(0).playerName);
